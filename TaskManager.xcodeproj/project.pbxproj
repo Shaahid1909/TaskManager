@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8C481F2D25F9DE0200E427E0 /* MainMenuTabbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C481F2B25F9DE0200E427E0 /* MainMenuTabbar.swift */; };
+		8C481F2E25F9DE0200E427E0 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C481F2C25F9DE0200E427E0 /* MainViewController.swift */; };
+		8C90A03725FA2B5D00E0FBBA /* securityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C90A03625FA2B5D00E0FBBA /* securityView.swift */; };
+		8C90A03F25FA3A8100E0FBBA /* TaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C90A03E25FA3A8100E0FBBA /* TaskViewController.swift */; };
+		8C90A04725FA488C00E0FBBA /* TaskViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C90A04625FA488C00E0FBBA /* TaskViewCell.swift */; };
 		8CF969C525F921B700F53670 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CF969C425F921B700F53670 /* AppDelegate.swift */; };
 		8CF969C725F921B700F53670 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CF969C625F921B700F53670 /* SceneDelegate.swift */; };
 		8CF969C925F921B700F53670 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CF969C825F921B700F53670 /* ViewController.swift */; };
@@ -35,6 +40,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		8C481F2B25F9DE0200E427E0 /* MainMenuTabbar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainMenuTabbar.swift; sourceTree = "<group>"; };
+		8C481F2C25F9DE0200E427E0 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		8C90A03625FA2B5D00E0FBBA /* securityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = securityView.swift; sourceTree = "<group>"; };
+		8C90A03E25FA3A8100E0FBBA /* TaskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskViewController.swift; sourceTree = "<group>"; };
+		8C90A04625FA488C00E0FBBA /* TaskViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskViewCell.swift; sourceTree = "<group>"; };
 		8CF969C125F921B700F53670 /* TaskManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TaskManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8CF969C425F921B700F53670 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8CF969C625F921B700F53670 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -102,10 +112,15 @@
 				8CF969C425F921B700F53670 /* AppDelegate.swift */,
 				8CF969C625F921B700F53670 /* SceneDelegate.swift */,
 				8CF969C825F921B700F53670 /* ViewController.swift */,
+				8C90A03625FA2B5D00E0FBBA /* securityView.swift */,
+				8C90A03E25FA3A8100E0FBBA /* TaskViewController.swift */,
 				8CF969CA25F921B700F53670 /* Main.storyboard */,
 				8CF969CD25F921BA00F53670 /* Assets.xcassets */,
 				8CF969CF25F921BA00F53670 /* LaunchScreen.storyboard */,
 				8CF969D225F921BA00F53670 /* Info.plist */,
+				8C481F2B25F9DE0200E427E0 /* MainMenuTabbar.swift */,
+				8C481F2C25F9DE0200E427E0 /* MainViewController.swift */,
+				8C90A04625FA488C00E0FBBA /* TaskViewCell.swift */,
 			);
 			path = TaskManager;
 			sourceTree = "<group>";
@@ -259,8 +274,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				8CF969C925F921B700F53670 /* ViewController.swift in Sources */,
+				8C90A03F25FA3A8100E0FBBA /* TaskViewController.swift in Sources */,
+				8C481F2D25F9DE0200E427E0 /* MainMenuTabbar.swift in Sources */,
+				8C90A04725FA488C00E0FBBA /* TaskViewCell.swift in Sources */,
+				8C90A03725FA2B5D00E0FBBA /* securityView.swift in Sources */,
 				8CF969C525F921B700F53670 /* AppDelegate.swift in Sources */,
 				8CF969C725F921B700F53670 /* SceneDelegate.swift in Sources */,
+				8C481F2E25F9DE0200E427E0 /* MainViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
