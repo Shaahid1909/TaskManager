@@ -7,7 +7,8 @@
 
 import UIKit
 
-class securityView: UIViewController {
+
+class securityView: UIViewController{
     
     @IBOutlet weak var securityText: UITextField!
     @IBOutlet weak var activateBtn: UIButton!
@@ -22,6 +23,5 @@ class securityView: UIViewController {
              // Do any additional setup after loading the view.
     }
     
-
-
+ 
 }

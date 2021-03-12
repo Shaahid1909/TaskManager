@@ -13,9 +13,18 @@ class TaskViewCell: UITableViewCell {
     @IBOutlet weak var categoryImg: UIImageView!
     @IBOutlet weak var tasknamelab: UILabel!
     @IBOutlet weak var taskdatelab: UILabel!
+    @IBOutlet weak var favcheck: UIButton!
+    @IBOutlet weak var taskcellview: UIView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        
+        taskcellview.layer.masksToBounds = false
+        taskcellview.layer.shadowRadius = 5
+        taskcellview.layer.shadowOpacity = 0.5
+        taskcellview.layer.shadowColor = UIColor.lightGray.cgColor
+        taskcellview.layer.shadowOffset = CGSize(width: 0 , height:3)
+        
         // Initialization code
     }
 

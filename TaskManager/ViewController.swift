@@ -6,8 +6,10 @@
 //
 
 import UIKit
+import MessageUI
 
-class ViewController: UIViewController {
+class ViewController: UIViewController,MFMailComposeViewControllerDelegate
+{
     @IBOutlet weak var emailText: UITextField!
     @IBOutlet weak var licensekeyText: UITextField!
     
@@ -25,6 +27,25 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
 
+    @IBAction func sendEmail(_ sender: Any) {
+           //TODO:  You should chack if we can send email or not
+           if MFMailComposeViewController.canSendMail() {
+               let mail = MFMailComposeViewController()
+               mail.mailComposeDelegate = self
+            mail.setToRecipients(["\(emailText.text as! String               )"])
+               mail.setSubject("Verification code")
+               mail.setMessageBody("<p>The verification code is 12345</p>", isHTML: true)
+               present(mail, animated: true)
+           } else {
+               print("Application is not able to send an email")
+           }
+       }
+
+       //MARK: MFMail Compose ViewController Delegate method
+       func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+           controller.dismiss(animated: true)
+       }
+    
 
 }
 
