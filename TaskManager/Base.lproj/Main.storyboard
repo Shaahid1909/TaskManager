@@ -649,22 +649,25 @@
                                     <action selector="addclicked:" destination="ZBY-iH-d24" eventType="touchUpInside" id="Sht-7Q-xBS"/>
                                 </connections>
                             </button>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uQ9-w7-lSU">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uQ9-w7-lSU">
                                 <rect key="frame" x="0.0" y="88" width="414" height="725"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.94132733589999995" green="0.94132733589999995" blue="0.94132733589999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="e4r-F7-YVk"/>
                         <color key="backgroundColor" red="0.94132733589999995" green="0.94132733589999995" blue="0.94132733589999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="uQ9-w7-lSU" firstAttribute="leading" secondItem="e4r-F7-YVk" secondAttribute="leading" id="6lf-i7-Suv"/>
                             <constraint firstItem="DbW-WE-k3G" firstAttribute="leading" secondItem="e4r-F7-YVk" secondAttribute="leading" constant="16" id="9HC-I0-oAj"/>
                             <constraint firstItem="DbW-WE-k3G" firstAttribute="bottom" secondItem="e4r-F7-YVk" secondAttribute="bottom" id="BTr-TM-UE9"/>
                             <constraint firstItem="DbW-WE-k3G" firstAttribute="bottom" secondItem="e4r-F7-YVk" secondAttribute="bottom" id="BmW-Tu-E6e"/>
+                            <constraint firstItem="uQ9-w7-lSU" firstAttribute="bottom" secondItem="e4r-F7-YVk" secondAttribute="bottom" id="GRy-bq-gdp"/>
                             <constraint firstItem="e4r-F7-YVk" firstAttribute="trailing" secondItem="DbW-WE-k3G" secondAttribute="trailing" constant="16" id="HY8-Z4-W7d"/>
                             <constraint firstItem="e4r-F7-YVk" firstAttribute="trailing" secondItem="usb-6B-EX2" secondAttribute="trailing" constant="9" id="KAS-3R-m09"/>
                             <constraint firstItem="DbW-WE-k3G" firstAttribute="top" secondItem="e4r-F7-YVk" secondAttribute="top" id="NdZ-Gf-ODM"/>
+                            <constraint firstItem="uQ9-w7-lSU" firstAttribute="trailing" secondItem="e4r-F7-YVk" secondAttribute="trailing" id="cCa-z9-Zpp"/>
                             <constraint firstItem="e4r-F7-YVk" firstAttribute="bottom" secondItem="usb-6B-EX2" secondAttribute="bottom" constant="1" id="o7i-GM-qQ6"/>
+                            <constraint firstItem="uQ9-w7-lSU" firstAttribute="top" secondItem="e4r-F7-YVk" secondAttribute="top" id="qFz-zy-fpO"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Tasks" id="Si4-Jh-CIL">
@@ -703,7 +706,7 @@
                         <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ov0-xa-2aS">
                             <rect key="frame" x="13" y="6" width="314" height="322"/>
                             <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Category" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="31E-tN-WlM">
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Category" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="31E-tN-WlM">
                                     <rect key="frame" x="13" y="176" width="67" height="22.5"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="22.5" id="Dxt-e1-GfQ"/>
@@ -739,7 +742,7 @@
                                     <constraints>
                                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="288" id="loF-Bx-AJi"/>
                                     </constraints>
-                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                     <textInputTraits key="textInputTraits"/>
                                 </textField>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="chd-Rt-gtF">

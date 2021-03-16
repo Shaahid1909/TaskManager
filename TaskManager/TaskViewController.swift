@@ -62,7 +62,7 @@ class TaskViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         tabView.delegate = self
         tabView.dataSource = self
        // layerView.layer.cornerRadius = 10
-        popView.bounds = CGRect(x: -1, y: 0, width: 390, height: 345)
+        popView.bounds = CGRect(x: 0, y: 0, width: 385, height: 345)
         
         layerView.layer.borderWidth = 0.5
         downloadItems()
@@ -521,8 +521,14 @@ class TaskViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
     
     @IBAction func AddbtnActionTapped(_ sender: Any) {
         
-        
-        
+        if tasknameField.text!.trimmingCharacters(in: .whitespaces).isEmpty && dateField.text!.trimmingCharacters(in: .whitespaces).isEmpty || tasknameField.text!.trimmingCharacters(in: .whitespaces).isEmpty {
+            let alert = UIAlertController(title: "Alert", message: "Fill all the fields", preferredStyle: UIAlertController.Style.alert)
+            let cancel = UIAlertAction(title: "Ok", style: .cancel) { (action) -> Void in
+              }
+            alert.addAction(cancel)
+            present(alert, animated: true, completion: nil)
+         
+        }else{
         
         
         
@@ -552,7 +558,7 @@ class TaskViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         dateField.text = ""
         self.tabView.reloadData()
         
-        
+        }
         
     }
     func downloadItems() {
