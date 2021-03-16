@@ -732,11 +732,11 @@ class TaskViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
     func datepicker1(){
         let toolbar=UIToolbar()
         toolbar.sizeToFit()
-        let done=UIBarButtonItem(barButtonSystemItem: .done, target:nil, action:#selector(doneselect))
+        let done=UIBarButtonItem(barButtonSystemItem: .done, target:nil, action:#selector(start))
         toolbar.setItems([done], animated: false)
-        dateField.inputAccessoryView=toolbar
-        dateField.inputView=start_end_date1
-        start_end_date1.datePickerMode = .date
+        stextField.inputAccessoryView=toolbar
+        stextField.inputView=dateset
+        dateset.datePickerMode = .date
        
     }
     @objc func start(){
@@ -744,7 +744,7 @@ class TaskViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         dateformat.dateStyle = .medium
         dateformat.timeStyle = .none
         dateformat.dateFormat = "yyyy-MM-dd"
-        let sdatestring = dateformat.string(from: start_end_date1.date)
+        let sdatestring = dateformat.string(from: dateset.date)
         stextField.text="\(sdatestring as! String)"
         self.view.endEditing(true)
     }
@@ -917,9 +917,10 @@ class TaskViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         let done=UIBarButtonItem(barButtonSystemItem: .done, target:nil, action:#selector(doneselect))
         toolbar.setItems([done], animated: false)
         dateField.inputAccessoryView=toolbar
-        dateField.inputView=dateset
-        dateset.datePickerMode = .date
-        
+        dateField.inputView=start_end_date1
+        start_end_date1.datePickerMode = .date
+     
+     
     }
     
     @objc func doneselect(){
@@ -927,11 +928,10 @@ class TaskViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         dateformat.dateStyle = .medium
         dateformat.timeStyle = .none
         dateformat.dateFormat = "yyyy-MM-dd"
-        let datestring = dateformat.string(from: dateset.date)
+        let datestring = dateformat.string(from: start_end_date1.date)
         dateField.text="\(datestring)"
         self.view.endEditing(true)
     }
-    
     
     
 }
