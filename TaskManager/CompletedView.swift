@@ -38,11 +38,37 @@ class CompletedView: UIViewController,UITableViewDelegate,UITableViewDataSource 
         complete.count
     }
     
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        let id2 = complete[indexPath.row]
+           if editingStyle == .delete {
+           complete.remove(at: indexPath.row)
+           tableView.deleteRows(at: [indexPath], with: .fade)
+            let request = NSMutableURLRequest(url: NSURL(string: "https://appstudio.co/iOS/delete_N.php")! as URL)
+            request.httpMethod = "POST"
+            let postString = "TaskName=\(id2.completedTaskname as! String)"
+            request.httpBody = postString.data(using: String.Encoding.utf8)
+            let task3 = URLSession.shared.dataTask(with: request as URLRequest) {
+            data, response, error in
+            if error != nil {
+            print("error=\(String(describing: error))")
+            return
+            }
+            print("response = \(String(describing: response))")
+            let responseString = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
+            print("responseString = \(String(describing: responseString))")
+            }
+            task3.resume()
+        }
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let Ccell = tableView.dequeueReusableCell(withIdentifier: "compCell", for: indexPath) as! CompletedCell
-   Ccell.comptextlab.text = complete[indexPath.row].completedTaskname
-    Ccell.compdatelab.text = complete[indexPath.row].completeddate
+        Ccell.comptextlab.text = complete[indexPath.row].completedTaskname
+        Ccell.compdatelab.text = complete[indexPath.row].completeddate
+        Ccell.favbtn.tag = indexPath.row
+        Ccell.favbtn.addTarget(self, action: #selector(cellbtntapped(sender:)), for: .touchUpInside)
+        
         if complete[indexPath.row].Category == "Home"{
             Ccell.compcatImg.image = UIImage(named: "Group 35")
             }else if complete[indexPath.row].Category == "Shopping" {
@@ -74,10 +100,60 @@ class CompletedView: UIViewController,UITableViewDelegate,UITableViewDataSource 
         return Ccell
     }
     
+    @objc func cellbtntapped(sender:UIButton){
+        let tag = sender.tag
+        let indexPath = IndexPath(row: tag, section: 0)
+        let id = complete[indexPath.row]
+        if sender.isSelected{
+        sender.isSelected = false
+        sender.setImage(#imageLiteral(resourceName: "Heart unchecked"), for: .normal)
+        print("fav Deselected")
+        let request = NSMutableURLRequest(url: NSURL(string: "https://appstudio.co/iOS/FavouriteStatus.php")! as URL)
+        request.httpMethod = "POST"
+        let postString = "TaskName=\(id.completedTaskname as! String)&FavouriteStatus=Not Favourite"
+        request.httpBody = postString.data(using: String.Encoding.utf8)
+        let task = URLSession.shared.dataTask(with: request as URLRequest) {
+        data, response, error in
+        if error != nil {
+        print("error=\(String(describing: error))")
+        return
+        }
+        print("response = \(String(describing: response))")
+        let responseString = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
+        print("responseString = \(String(describing: responseString))")
+ //     self.refreshresponse()
+        }
+        task.resume()
+        }else{
+        sender.isSelected = true
+        sender.setImage(#imageLiteral(resourceName: "Path"), for: .normal)
+        print("fav Selected")
+        let request = NSMutableURLRequest(url: NSURL(string: "https://appstudio.co/iOS/FavouriteStatus.php")! as URL)
+        request.httpMethod = "POST"
+        let postString = "TaskName=\(id.completedTaskname as! String)&FavouriteStatus=Favourite"
+        request.httpBody = postString.data(using: String.Encoding.utf8)
+        let task = URLSession.shared.dataTask(with: request as URLRequest) {
+        data, response, error in
+        if error != nil {
+        print("error=\(String(describing: error))")
+        return
+        }
+        print("response = \(String(describing: response))")
+        let responseString = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
+        print("responseString = \(String(describing: responseString))")
+      //self.refreshresponse()
+        }
+        task.resume()
+        }
+    }
+    
+    
     func downloadItems() {
+        guard let email = UserDefaults.standard.value(forKey: "email") as? String else {return}
+        
         let request = NSMutableURLRequest(url: NSURL(string: urlpath ?? "https://appstudio.co/iOS/Completed_N.php")! as URL)
             request.httpMethod = "POST"
-            let postString = "username=shaahid@gmail.com"
+            let postString = "username=\(email)"
             print("postString \(postString)")
             request.httpBody = postString.data(using: String.Encoding.utf8)
         let task = URLSession.shared.dataTask(with: request as URLRequest) {

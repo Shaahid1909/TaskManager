@@ -25,6 +25,7 @@ class PendingCell: UITableViewCell {
         pendingcellView.layer.shadowOpacity = 0.5
         pendingcellView.layer.shadowColor = UIColor.lightGray.cgColor
         pendingcellView.layer.shadowOffset = CGSize(width: 0 , height:3)
+        pendingcellView.layer.cornerRadius = 10
         
     }
 

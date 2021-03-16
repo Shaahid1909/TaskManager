@@ -9,6 +9,7 @@ import UIKit
 
 class FavouritesView: UIViewController,UITableViewDataSource,UITableViewDelegate {
   
+    @IBOutlet weak var flayerview: UIView!
     var fav = [list]()
     var urlpath: String?
     
@@ -40,11 +41,69 @@ class FavouritesView: UIViewController,UITableViewDataSource,UITableViewDelegate
         fav.count
     }
     
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        let id2 = fav[indexPath.row]
+           if editingStyle == .delete {
+           fav.remove(at: indexPath.row)
+           tableView.deleteRows(at: [indexPath], with: .fade)
+            let request = NSMutableURLRequest(url: NSURL(string: "https://appstudio.co/iOS/delete_N.php")! as URL)
+            request.httpMethod = "POST"
+            let postString = "TaskName=\(id2.favtaskname as! String)"
+            request.httpBody = postString.data(using: String.Encoding.utf8)
+            let task3 = URLSession.shared.dataTask(with: request as URLRequest) {
+            data, response, error in
+            if error != nil {
+            print("error=\(String(describing: error))")
+            return
+            }
+            print("response = \(String(describing: response))")
+            let responseString = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
+            print("responseString = \(String(describing: responseString))")
+            }
+            task3.resume()
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let CompletedAction = UIContextualAction(style: .normal, title: "Close", handler: {[self] (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
+           print("OK, marked as Closed")
+          let requesting = NSMutableURLRequest(url: NSURL(string: "https://appstudio.co/iOS/update_N.php")! as URL)
+          requesting.httpMethod = "POST"
+          let postStr = "TaskName=\(fav[indexPath.row].favtaskname)&TaskStatus=Completed"
+          print("leadingSwipeActions \(postStr)")
+          requesting.httpBody = postStr.data(using: String.Encoding.utf8)
+          let task = URLSession.shared.dataTask(with: requesting as URLRequest) {
+            data, response, error in
+            if error != nil {
+              print("error=\(String(describing: error))")
+              return
+            }
+            print("response = \(String(describing: response))")
+            let responseString = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
+            print("responseString = \(String(describing: responseString))")
+            print("Checked Selected")
+          }
+          task.resume()
+           success(true)
+         })
+        // closeAction.image = UIImage(named: "tick")
+        CompletedAction.title = "Completed"
+        CompletedAction.backgroundColor = #colorLiteral(red: 0.3411764801, green: 0.6235294342, blue: 0.1686274558, alpha: 1)
+         return UISwipeActionsConfiguration(actions: [CompletedAction])
+      }
+    
+    
+    
+    
+    
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let fcell = tableView.dequeueReusableCell(withIdentifier: "favCell", for: indexPath) as! FavouriteCell
         fcell.favtextlab.text = fav[indexPath.row].favtaskname
         fcell.favdatelab.text = fav[indexPath.row].favdate
+        fcell.favbtn.tag = indexPath.row
+        fcell.favbtn.addTarget(self, action: #selector(cellbtntapped(sender:)), for: .touchUpInside)
         if fav[indexPath.row].Category == "Home"{
             fcell.favcatImg.image = UIImage(named: "Group 35")
             }else if fav[indexPath.row].Category == "Shopping" {
@@ -77,10 +136,61 @@ class FavouritesView: UIViewController,UITableViewDataSource,UITableViewDelegate
         return fcell
     }
     
+    @objc func cellbtntapped(sender:UIButton){
+        let tag = sender.tag
+        let indexPath = IndexPath(row: tag, section: 0)
+        let id = fav[indexPath.row]
+        if sender.isSelected{
+        sender.isSelected = false
+        sender.setImage(#imageLiteral(resourceName: "Heart unchecked"), for: .normal)
+        print("fav Deselected")
+        let request = NSMutableURLRequest(url: NSURL(string: "https://appstudio.co/iOS/FavouriteStatus.php")! as URL)
+        request.httpMethod = "POST"
+        let postString = "TaskName=\(id.favtaskname as! String)&FavouriteStatus=Not Favourite"
+        request.httpBody = postString.data(using: String.Encoding.utf8)
+        let task = URLSession.shared.dataTask(with: request as URLRequest) {
+        data, response, error in
+        if error != nil {
+        print("error=\(String(describing: error))")
+        return
+        }
+        print("response = \(String(describing: response))")
+        let responseString = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
+        print("responseString = \(String(describing: responseString))")
+ //     self.refreshresponse()
+        }
+        task.resume()
+        }else{
+        sender.isSelected = true
+        sender.setImage(#imageLiteral(resourceName: "Path"), for: .normal)
+        print("fav Selected")
+        let request = NSMutableURLRequest(url: NSURL(string: "https://appstudio.co/iOS/FavouriteStatus.php")! as URL)
+        request.httpMethod = "POST"
+        let postString = "TaskName=\(id.favtaskname as! String)&FavouriteStatus=Favourite"
+        request.httpBody = postString.data(using: String.Encoding.utf8)
+        let task = URLSession.shared.dataTask(with: request as URLRequest) {
+        data, response, error in
+        if error != nil {
+        print("error=\(String(describing: error))")
+        return
+        }
+        print("response = \(String(describing: response))")
+        let responseString = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
+        print("responseString = \(String(describing: responseString))")
+      //self.refreshresponse()
+        }
+        task.resume()
+        }
+    }
+    
+    
+    
     func downloadItems() {
+        guard let email = UserDefaults.standard.value(forKey: "email") as? String else {return}
+        
         let request = NSMutableURLRequest(url: NSURL(string: urlpath ?? "https://appstudio.co/iOS/Favourite.php")! as URL)
             request.httpMethod = "POST"
-            let postString = "username=shaahid@gmail.com&FavouriteStatus=Favourite"
+            let postString = "username=\(email)&FavouriteStatus=Favourite"
             print("postString \(postString)")
             request.httpBody = postString.data(using: String.Encoding.utf8)
         let task = URLSession.shared.dataTask(with: request as URLRequest) {

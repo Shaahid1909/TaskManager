@@ -23,6 +23,7 @@ class FavouriteCell: UITableViewCell {
         favcellView.layer.shadowOpacity = 0.5
         favcellView.layer.shadowColor = UIColor.lightGray.cgColor
         favcellView.layer.shadowOffset = CGSize(width: 0 , height:3)
+        favcellView.layer.cornerRadius = 10
         
     }
 

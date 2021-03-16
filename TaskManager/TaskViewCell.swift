@@ -25,6 +25,8 @@ class TaskViewCell: UITableViewCell {
         taskcellview.layer.shadowColor = UIColor.lightGray.cgColor
         taskcellview.layer.shadowOffset = CGSize(width: 0 , height:3)
         
+        taskcellview.layer.cornerRadius = 10
+        
         // Initialization code
     }
 

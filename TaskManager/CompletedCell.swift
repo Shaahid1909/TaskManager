@@ -24,6 +24,7 @@ class CompletedCell: UITableViewCell {
         completedcellView.layer.shadowOpacity = 0.5
         completedcellView.layer.shadowColor = UIColor.lightGray.cgColor
         completedcellView.layer.shadowOffset = CGSize(width: 0 , height:3)
+        completedcellView.layer.cornerRadius = 10
         
     }
 
