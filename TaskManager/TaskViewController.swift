@@ -10,7 +10,7 @@ import UIKit
 class TaskViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
   
     
-    @IBOutlet var popView: UIView!
+  //  @IBOutlet var popView: UIView!
     @IBOutlet weak var tabView: UITableView!
     @IBOutlet weak var AddtaskBtn: UIButton!
     @IBOutlet weak var tasknameField: UITextField!
@@ -18,6 +18,7 @@ class TaskViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
     @IBOutlet weak var viewtaskaddbtn: UIButton!
     @IBOutlet weak var blurView: UIView!
     
+    @IBOutlet var popView: UIScrollView!
     @IBOutlet weak var layerView: UIView!
     var insert = [insertData]()
     var urlpath:String?
@@ -57,17 +58,23 @@ class TaskViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+      
+        insert.removeAll()
+        downloadItems()
+        tabView.reloadData()
+        
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         tabView.delegate = self
         tabView.dataSource = self
        // layerView.layer.cornerRadius = 10
-        popView.bounds = CGRect(x: 0, y: 0, width: 385, height: 345)
-        
-        layerView.layer.borderWidth = 0.5
-        downloadItems()
-        viewtaskaddbtn.layer.cornerRadius = 13
+   //     popView.bounds = CGRect(x: 0, y: 0, width: 385, height: 345)
+        layerView.layer.cornerRadius = 10
+        //layerView.layer.borderWidth = 0.5
+        viewtaskaddbtn.layer.cornerRadius = 10
         tasknameField.layer.cornerRadius = 10
         tasknameField.layer.borderWidth = 0.3
         tasknameField.layer.borderColor = UIColor.black.cgColor
@@ -84,7 +91,7 @@ class TaskViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         datepicker1()
         start()
         blurView.alpha = 0
-        
+   
     }
     
     @IBAction func ShoppingAction(_ sender: Any) {
@@ -727,8 +734,6 @@ class TaskViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
               
     }
     
-    
-    
     func datepicker1(){
         let toolbar=UIToolbar()
         toolbar.sizeToFit()
@@ -737,8 +742,8 @@ class TaskViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         stextField.inputAccessoryView=toolbar
         stextField.inputView=dateset
         dateset.datePickerMode = .date
-       
     }
+    
     @objc func start(){
         let dateformat=DateFormatter()
         dateformat.dateStyle = .medium

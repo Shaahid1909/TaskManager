@@ -29,6 +29,7 @@ class FavouritesView: UIViewController,UITableViewDataSource,UITableViewDelegate
       
         fav.removeAll()
         downloadItems()
+    
         
     }
     

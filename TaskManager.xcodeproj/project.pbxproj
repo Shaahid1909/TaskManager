@@ -17,6 +17,7 @@
 		8C90A03725FA2B5D00E0FBBA /* securityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C90A03625FA2B5D00E0FBBA /* securityView.swift */; };
 		8C90A03F25FA3A8100E0FBBA /* TaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C90A03E25FA3A8100E0FBBA /* TaskViewController.swift */; };
 		8C90A04725FA488C00E0FBBA /* TaskViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C90A04625FA488C00E0FBBA /* TaskViewCell.swift */; };
+		8CC902D52601FCB8007C1119 /* IntroScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CC902D42601FCB8007C1119 /* IntroScreen.swift */; };
 		8CD6E4EE25FB8BAF0033F5D2 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CD6E4ED25FB8BAF0033F5D2 /* SettingsViewController.swift */; };
 		8CD6E4F625FBA31A0033F5D2 /* setfirstCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CD6E4F525FBA31A0033F5D2 /* setfirstCell.swift */; };
 		8CD6E4FB25FBA3590033F5D2 /* setsecondCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CD6E4FA25FBA3590033F5D2 /* setsecondCell.swift */; };
@@ -67,6 +68,7 @@
 		8C90A03625FA2B5D00E0FBBA /* securityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = securityView.swift; sourceTree = "<group>"; };
 		8C90A03E25FA3A8100E0FBBA /* TaskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskViewController.swift; sourceTree = "<group>"; };
 		8C90A04625FA488C00E0FBBA /* TaskViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskViewCell.swift; sourceTree = "<group>"; };
+		8CC902D42601FCB8007C1119 /* IntroScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroScreen.swift; sourceTree = "<group>"; };
 		8CD6E4ED25FB8BAF0033F5D2 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		8CD6E4F525FBA31A0033F5D2 /* setfirstCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = setfirstCell.swift; sourceTree = "<group>"; };
 		8CD6E4FA25FBA3590033F5D2 /* setsecondCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = setsecondCell.swift; sourceTree = "<group>"; };
@@ -194,6 +196,7 @@
 				8CD6E50425FBA3CD0033F5D2 /* setfourthCell.swift */,
 				8CD6E50925FBA4430033F5D2 /* setfifthCell.swift */,
 				8C1193612600762D00E7AB35 /* UIViewController.swift */,
+				8CC902D42601FCB8007C1119 /* IntroScreen.swift */,
 			);
 			path = TaskManager;
 			sourceTree = "<group>";
@@ -454,6 +457,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8CC902D52601FCB8007C1119 /* IntroScreen.swift in Sources */,
 				8CF969C925F921B700F53670 /* ViewController.swift in Sources */,
 				8C90A03F25FA3A8100E0FBBA /* TaskViewController.swift in Sources */,
 				8CD6E50A25FBA4430033F5D2 /* setfifthCell.swift in Sources */,

@@ -25,6 +25,7 @@ class PendingView: UIViewController,UITableViewDelegate,UITableViewDataSource {
     override func viewWillAppear(_ animated: Bool) {
         pend.removeAll()
         downloadItems()
+  
          
         }
     
@@ -67,7 +68,7 @@ class PendingView: UIViewController,UITableViewDelegate,UITableViewDataSource {
            print("OK, marked as Closed")
           let requesting = NSMutableURLRequest(url: NSURL(string: "https://appstudio.co/iOS/update_N.php")! as URL)
           requesting.httpMethod = "POST"
-          let postStr = "TaskName=\(pend[indexPath.row].pendingTaskname)&TaskStatus=Completed"
+          let postStr = "TaskName=\(pend[indexPath.row].pendingTaskname!)&TaskStatus=Completed"
           print("leadingSwipeActions \(postStr)")
           requesting.httpBody = postStr.data(using: String.Encoding.utf8)
           let task = URLSession.shared.dataTask(with: requesting as URLRequest) {

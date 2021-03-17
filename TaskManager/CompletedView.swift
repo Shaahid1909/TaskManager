@@ -26,7 +26,7 @@ class CompletedView: UIViewController,UITableViewDelegate,UITableViewDataSource 
     override func viewWillAppear(_ animated: Bool) {
         complete.removeAll()
         downloadItems()
-         
+        comptable.reloadData()
         }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
