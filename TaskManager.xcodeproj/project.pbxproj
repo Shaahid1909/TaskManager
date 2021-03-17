@@ -34,6 +34,9 @@
 		8CF969E725F921BA00F53670 /* TaskManagerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CF969E625F921BA00F53670 /* TaskManagerUITests.swift */; };
 		9FEE1806F520871C1F24A3D5 /* Pods_TaskManager_TaskManagerUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52F0CCC0BF7023265BEA1128 /* Pods_TaskManager_TaskManagerUITests.framework */; };
 		A981DA6C1471D8DA39891EF9 /* Pods_TaskManagerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A6D39DF15FC1DFF1133A1619 /* Pods_TaskManagerTests.framework */; };
+		CF1D76922602128800175D04 /* WalkthroughContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF1D768F2602128700175D04 /* WalkthroughContentViewController.swift */; };
+		CF1D76932602128800175D04 /* WalkthroughPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF1D76902602128800175D04 /* WalkthroughPageViewController.swift */; };
+		CF1D76942602128800175D04 /* WalkthroughViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF1D76912602128800175D04 /* WalkthroughViewController.swift */; };
 		F4BEC4CFA4E7FD234F37D829 /* Pods_TaskManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D8009AA14395A4F7193CBF1 /* Pods_TaskManager.framework */; };
 /* End PBXBuildFile section */
 
@@ -95,6 +98,9 @@
 		C66163CF0EC6FD4CC1F57BA3 /* Pods-TaskManagerTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TaskManagerTests.release.xcconfig"; path = "Target Support Files/Pods-TaskManagerTests/Pods-TaskManagerTests.release.xcconfig"; sourceTree = "<group>"; };
 		CB7DC400E6D0F84F13044F46 /* Pods-TaskManagerTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TaskManagerTests.debug.xcconfig"; path = "Target Support Files/Pods-TaskManagerTests/Pods-TaskManagerTests.debug.xcconfig"; sourceTree = "<group>"; };
 		CDA4AB03C76C9171C57D7AFE /* Pods-TaskManager.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TaskManager.debug.xcconfig"; path = "Target Support Files/Pods-TaskManager/Pods-TaskManager.debug.xcconfig"; sourceTree = "<group>"; };
+		CF1D768F2602128700175D04 /* WalkthroughContentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WalkthroughContentViewController.swift; sourceTree = "<group>"; };
+		CF1D76902602128800175D04 /* WalkthroughPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WalkthroughPageViewController.swift; sourceTree = "<group>"; };
+		CF1D76912602128800175D04 /* WalkthroughViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WalkthroughViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -173,30 +179,22 @@
 		8CF969C325F921B700F53670 /* TaskManager */ = {
 			isa = PBXGroup;
 			children = (
+				CF1D768E2602126600175D04 /* onboard */,
 				8CF969C425F921B700F53670 /* AppDelegate.swift */,
 				8CF969C625F921B700F53670 /* SceneDelegate.swift */,
+				8CC902D42601FCB8007C1119 /* IntroScreen.swift */,
 				8CF969C825F921B700F53670 /* ViewController.swift */,
 				8C90A03625FA2B5D00E0FBBA /* securityView.swift */,
-				8C90A03E25FA3A8100E0FBBA /* TaskViewController.swift */,
-				8C90A04625FA488C00E0FBBA /* TaskViewCell.swift */,
-				8C654F7D25FB2BC00079E544 /* FavouritesView.swift */,
-				8C654F9525FB2C1E0079E544 /* FavouriteCell.swift */,
-				8C654F8525FB2BF40079E544 /* PendingView.swift */,
-				8C654F9D25FB2C310079E544 /* PendingCell.swift */,
-				8C654F8D25FB2C080079E544 /* CompletedView.swift */,
-				8C654FA525FB2C550079E544 /* CompletedCell.swift */,
-				8CD6E4ED25FB8BAF0033F5D2 /* SettingsViewController.swift */,
+				CF1D768026020DE800175D04 /* TaskView */,
+				CF1D768126020E9700175D04 /* FavouriteTask */,
+				CF1D768226020ECE00175D04 /* PendingTask */,
+				CF1D768326020EE900175D04 /* CompletedTask */,
+				CF1D768726020F3200175D04 /* SettingsView */,
 				8CF969CA25F921B700F53670 /* Main.storyboard */,
 				8CF969CD25F921BA00F53670 /* Assets.xcassets */,
 				8CF969CF25F921BA00F53670 /* LaunchScreen.storyboard */,
 				8CF969D225F921BA00F53670 /* Info.plist */,
-				8CD6E4F525FBA31A0033F5D2 /* setfirstCell.swift */,
-				8CD6E4FA25FBA3590033F5D2 /* setsecondCell.swift */,
-				8CD6E4FF25FBA39D0033F5D2 /* setthirdCell.swift */,
-				8CD6E50425FBA3CD0033F5D2 /* setfourthCell.swift */,
-				8CD6E50925FBA4430033F5D2 /* setfifthCell.swift */,
 				8C1193612600762D00E7AB35 /* UIViewController.swift */,
-				8CC902D42601FCB8007C1119 /* IntroScreen.swift */,
 			);
 			path = TaskManager;
 			sourceTree = "<group>";
@@ -217,6 +215,65 @@
 				8CF969E825F921BA00F53670 /* Info.plist */,
 			);
 			path = TaskManagerUITests;
+			sourceTree = "<group>";
+		};
+		CF1D768026020DE800175D04 /* TaskView */ = {
+			isa = PBXGroup;
+			children = (
+				8C90A03E25FA3A8100E0FBBA /* TaskViewController.swift */,
+				8C90A04625FA488C00E0FBBA /* TaskViewCell.swift */,
+			);
+			path = TaskView;
+			sourceTree = "<group>";
+		};
+		CF1D768126020E9700175D04 /* FavouriteTask */ = {
+			isa = PBXGroup;
+			children = (
+				8C654F7D25FB2BC00079E544 /* FavouritesView.swift */,
+				8C654F9525FB2C1E0079E544 /* FavouriteCell.swift */,
+			);
+			path = FavouriteTask;
+			sourceTree = "<group>";
+		};
+		CF1D768226020ECE00175D04 /* PendingTask */ = {
+			isa = PBXGroup;
+			children = (
+				8C654F8525FB2BF40079E544 /* PendingView.swift */,
+				8C654F9D25FB2C310079E544 /* PendingCell.swift */,
+			);
+			path = PendingTask;
+			sourceTree = "<group>";
+		};
+		CF1D768326020EE900175D04 /* CompletedTask */ = {
+			isa = PBXGroup;
+			children = (
+				8C654F8D25FB2C080079E544 /* CompletedView.swift */,
+				8C654FA525FB2C550079E544 /* CompletedCell.swift */,
+			);
+			path = CompletedTask;
+			sourceTree = "<group>";
+		};
+		CF1D768726020F3200175D04 /* SettingsView */ = {
+			isa = PBXGroup;
+			children = (
+				8CD6E4ED25FB8BAF0033F5D2 /* SettingsViewController.swift */,
+				8CD6E4F525FBA31A0033F5D2 /* setfirstCell.swift */,
+				8CD6E4FA25FBA3590033F5D2 /* setsecondCell.swift */,
+				8CD6E4FF25FBA39D0033F5D2 /* setthirdCell.swift */,
+				8CD6E50425FBA3CD0033F5D2 /* setfourthCell.swift */,
+				8CD6E50925FBA4430033F5D2 /* setfifthCell.swift */,
+			);
+			path = SettingsView;
+			sourceTree = "<group>";
+		};
+		CF1D768E2602126600175D04 /* onboard */ = {
+			isa = PBXGroup;
+			children = (
+				CF1D768F2602128700175D04 /* WalkthroughContentViewController.swift */,
+				CF1D76902602128800175D04 /* WalkthroughPageViewController.swift */,
+				CF1D76912602128800175D04 /* WalkthroughViewController.swift */,
+			);
+			path = onboard;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -461,11 +518,13 @@
 				8CF969C925F921B700F53670 /* ViewController.swift in Sources */,
 				8C90A03F25FA3A8100E0FBBA /* TaskViewController.swift in Sources */,
 				8CD6E50A25FBA4430033F5D2 /* setfifthCell.swift in Sources */,
+				CF1D76932602128800175D04 /* WalkthroughPageViewController.swift in Sources */,
 				8C1193622600762D00E7AB35 /* UIViewController.swift in Sources */,
 				8C654F9E25FB2C310079E544 /* PendingCell.swift in Sources */,
 				8C90A04725FA488C00E0FBBA /* TaskViewCell.swift in Sources */,
 				8CD6E50025FBA39D0033F5D2 /* setthirdCell.swift in Sources */,
 				8C90A03725FA2B5D00E0FBBA /* securityView.swift in Sources */,
+				CF1D76922602128800175D04 /* WalkthroughContentViewController.swift in Sources */,
 				8C654F8625FB2BF40079E544 /* PendingView.swift in Sources */,
 				8C654F9625FB2C1E0079E544 /* FavouriteCell.swift in Sources */,
 				8C654F8E25FB2C080079E544 /* CompletedView.swift in Sources */,
@@ -476,6 +535,7 @@
 				8CD6E4F625FBA31A0033F5D2 /* setfirstCell.swift in Sources */,
 				8CF969C725F921B700F53670 /* SceneDelegate.swift in Sources */,
 				8CD6E4FB25FBA3590033F5D2 /* setsecondCell.swift in Sources */,
+				CF1D76942602128800175D04 /* WalkthroughViewController.swift in Sources */,
 				8C654FA625FB2C550079E544 /* CompletedCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
