@@ -10,6 +10,13 @@ import UIKit
 class CompletedView: UIViewController,UITableViewDelegate,UITableViewDataSource {
     var complete = [completelist]()
     var urlpath: String?
+    var ColdTaskname:String?
+    var Cdidselect:String?
+    var CsdateSelect: String?
+    var CtextField = UITextField()
+    var CstextField = UITextField()
+    var Cstart_end_date1 = UIDatePicker()
+    
     
     @IBOutlet weak var comptable: UITableView!
     
@@ -37,6 +44,108 @@ class CompletedView: UIViewController,UITableViewDelegate,UITableViewDataSource 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         complete.count
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+     
+        ColdTaskname?.removeAll()
+        
+ 
+        guard let email = UserDefaults.standard.value(forKey: "email") as? String else {return}
+
+        Cdidselect = "\(complete[indexPath.row].completedTaskname as! String)"
+        CsdateSelect = "\(complete[indexPath.row].completeddate as! String)"
+     
+        let alert = UIAlertController(title: "Edit", message: "", preferredStyle: UIAlertController.Style.alert)
+        let action = UIAlertAction(title: "update", style: UIAlertAction.Style.default) { [self](action) in
+        let alertController = UIAlertController(title: "Edit", message: "Successfully updated!", preferredStyle: UIAlertController.Style.alert)
+        alertController.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default,handler: nil))
+        self.comptable.reloadData()
+      // namo link sever "http://con.test:8888/Task.php"
+            
+            if CtextField.text!.trimmingCharacters(in: .whitespaces).isEmpty != true && CstextField.text!.trimmingCharacters(in: .whitespaces).isEmpty != true{
+            
+            
+        let request = NSMutableURLRequest(url: NSURL(string: "https://appstudio.co/iOS/Edit_N.php")! as URL)
+        request.httpMethod = "POST"
+        let postString = "username=\(email)&TaskName=\(CtextField.text as! String)&TaskStatus=\(complete[indexPath.row].completedTaskname as! String)&TaskDate=\(CstextField.text as! String)&Id=\(Int16(complete[indexPath.row].compId as! String) as! Int16)"
+                    print("postString : \(postString)")
+        complete.removeAll()
+        request.httpBody = postString.data(using: String.Encoding.utf8)
+        let task = URLSession.shared.dataTask(with: request as URLRequest) {
+        data, response, error in
+        if error != nil {
+        print("error=\(String(describing: error))")
+                            return
+                        }
+        print("response = \(String(describing: response))")
+        let responseString = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
+        print("responseString = \(String(describing: responseString))")
+        downloadItems()
+            }
+        task.resume()
+        self.present(alertController, animated: true, completion: nil)
+           
+        self.comptable.reloadData()
+        
+    }else {
+          let alert = UIAlertController(title: "Alert", message: "Fill All Fields", preferredStyle: UIAlertController.Style.alert)
+          let cancel = UIAlertAction(title: "Ok", style: .cancel) { (action) -> Void in
+              }
+       
+      alert.addAction(cancel)
+          present(alert, animated: true, completion: nil)
+        }
+                }
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel) { (action) -> Void in
+                    }
+        alert.addTextField { [self] (alertTextField) in
+        alertTextField.placeholder = "Edit Task name"
+        alertTextField.text = Cdidselect
+        CtextField = alertTextField
+                }
+            alert.addTextField { [self] (textField1) in
+              let toolbar=UIToolbar()
+              toolbar.sizeToFit()
+         //   self.start_end_date2 = UIDatePicker(frame:CGRect(x: 0, y: self.view.frame.size.height - 220, width:self.view.frame.size.width, height: 216))
+               // start_end_date.datePickerMode = .date
+                let done1=UIBarButtonItem(barButtonSystemItem: .done, target:self, action:#selector(start))
+                toolbar.setItems([done1], animated: false)
+                textField1.inputAccessoryView=toolbar
+                textField1.inputView=Cstart_end_date1
+                textField1.placeholder = "Edit Task date"
+                textField1.text = CsdateSelect
+                Cstart_end_date1.datePickerMode = .date
+                CstextField = textField1
+              
+        }
+            alert.addAction(action)
+    alert.addAction(cancel)
+            present(alert, animated: true, completion: nil)
+            //   endDate.datePickerMode = .date
+              
+    }
+    
+    func datepicker1(){
+        let toolbar=UIToolbar()
+        toolbar.sizeToFit()
+        let done=UIBarButtonItem(barButtonSystemItem: .done, target:nil, action:#selector(start))
+        toolbar.setItems([done], animated: false)
+        CstextField.inputAccessoryView=toolbar
+        CstextField.inputView=Cstart_end_date1
+        Cstart_end_date1.datePickerMode = .date
+    }
+    
+    @objc func start(){
+        let dateformat=DateFormatter()
+        dateformat.dateStyle = .medium
+        dateformat.timeStyle = .none
+        dateformat.dateFormat = "yyyy-MM-dd"
+        let sdatestring = dateformat.string(from: Cstart_end_date1.date)
+        CstextField.text="\(sdatestring as! String)"
+        self.view.endEditing(true)
+    }
+    
+    
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         let id2 = complete[indexPath.row]
@@ -189,7 +298,7 @@ class CompletedView: UIViewController,UITableViewDelegate,UITableViewDataSource 
             let TaskStatus = jsonElement["TaskStatus"] as? String,
             let TaskDate = jsonElement["TaskDate"] as? String,
             let Category = jsonElement["Category"] as? String,
-            let FavouriteStatus = jsonElement["FavouriteStatus"]as? String
+            let Id = jsonElement["Id"] as? String,let FavouriteStatus = jsonElement["FavouriteStatus"]as? String
             {
             print(TaskName)
             print(TaskStatus)
@@ -201,7 +310,7 @@ class CompletedView: UIViewController,UITableViewDelegate,UITableViewDataSource 
                             let datetostring = dateformatter.string(from: datetime!)
                             print("datetime \(datetime) \(jsonElement["TaskDate"] as? String) \(datetostring)")
 
-                complete.append(completelist(completedTaskname: TaskName, completeddate: datetostring, Category: Category))
+                complete.append(completelist(completedTaskname: TaskName, completeddate: datetostring, Category: Category,compId: Id))
 
                 }
             }
@@ -220,4 +329,5 @@ struct completelist{
     var completeddate: String?
     var Category: String?
     var favstatus: String?
+    var compId: String?
 }

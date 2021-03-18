@@ -10,6 +10,12 @@ import UIKit
 class PendingView: UIViewController,UITableViewDelegate,UITableViewDataSource {
     var pend = [pendinglist]()
     var urlpath: String?
+    var PoldTaskname:String?
+    var Pdidselect:String?
+    var PsdateSelect: String?
+    var PtextField = UITextField()
+    var PstextField = UITextField()
+    var Pstart_end_date1 = UIDatePicker()
     
     @IBOutlet weak var pendtable: UITableView!
     
@@ -18,17 +24,15 @@ class PendingView: UIViewController,UITableViewDelegate,UITableViewDataSource {
 
         pendtable.delegate = self
         pendtable.dataSource = self
-      
+        datepicker1()
+        start()
     
         // Do any additional setup after loading the view.
     }
     override func viewWillAppear(_ animated: Bool) {
         pend.removeAll()
         downloadItems()
-  
-         
         }
-    
     
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -38,6 +42,105 @@ class PendingView: UIViewController,UITableViewDelegate,UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         pend.count
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+     
+        PoldTaskname?.removeAll()
+ 
+        guard let email = UserDefaults.standard.value(forKey: "email") as? String else {return}
+
+        Pdidselect = "\(pend[indexPath.row].pendingTaskname as! String)"
+        PsdateSelect = "\(pend[indexPath.row].pendingdate as! String)"
+     
+        let alert = UIAlertController(title: "Edit", message: "", preferredStyle: UIAlertController.Style.alert)
+        let action = UIAlertAction(title: "update", style: UIAlertAction.Style.default) { [self](action) in
+        let alertController = UIAlertController(title: "Edit", message: "Successfully updated!", preferredStyle: UIAlertController.Style.alert)
+        alertController.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default,handler: nil))
+        self.pendtable.reloadData()
+      // namo link sever "http://con.test:8888/Task.php"
+            
+            if PtextField.text!.trimmingCharacters(in: .whitespaces).isEmpty != true && PstextField.text!.trimmingCharacters(in: .whitespaces).isEmpty != true{
+            
+            
+        let request = NSMutableURLRequest(url: NSURL(string: "https://appstudio.co/iOS/Edit_N.php")! as URL)
+        request.httpMethod = "POST"
+        let postString = "username=\(email)&TaskName=\(PtextField.text as! String)&TaskStatus=\(pend[indexPath.row].pendingTaskname as! String)&TaskDate=\(PstextField.text as! String)&Id=\(Int16(pend[indexPath.row].PendId as! String) as! Int16)"
+                    print("postString : \(postString)")
+        pend.removeAll()
+        request.httpBody = postString.data(using: String.Encoding.utf8)
+        let task = URLSession.shared.dataTask(with: request as URLRequest) {
+        data, response, error in
+        if error != nil {
+        print("error=\(String(describing: error))")
+                            return
+                        }
+        print("response = \(String(describing: response))")
+        let responseString = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
+        print("responseString = \(String(describing: responseString))")
+        downloadItems()
+            }
+        task.resume()
+        self.present(alertController, animated: true, completion: nil)
+           
+        self.pendtable.reloadData()
+        
+    }else {
+          let alert = UIAlertController(title: "Alert", message: "Fill All Fields", preferredStyle: UIAlertController.Style.alert)
+          let cancel = UIAlertAction(title: "Ok", style: .cancel) { (action) -> Void in
+              }
+       
+      alert.addAction(cancel)
+          present(alert, animated: true, completion: nil)
+        }
+                }
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel) { (action) -> Void in
+                    }
+        alert.addTextField { [self] (alertTextField) in
+        alertTextField.placeholder = "Edit Task name"
+        alertTextField.text = Pdidselect
+        PtextField = alertTextField
+                }
+            alert.addTextField { [self] (textField1) in
+              let toolbar=UIToolbar()
+              toolbar.sizeToFit()
+         //   self.start_end_date2 = UIDatePicker(frame:CGRect(x: 0, y: self.view.frame.size.height - 220, width:self.view.frame.size.width, height: 216))
+               // start_end_date.datePickerMode = .date
+                let done1=UIBarButtonItem(barButtonSystemItem: .done, target:self, action:#selector(start))
+                toolbar.setItems([done1], animated: false)
+                textField1.inputAccessoryView=toolbar
+                textField1.inputView=Pstart_end_date1
+                textField1.placeholder = "Edit Task date"
+                textField1.text = PsdateSelect
+                Pstart_end_date1.datePickerMode = .date
+                PstextField = textField1
+              
+        }
+            alert.addAction(action)
+    alert.addAction(cancel)
+            present(alert, animated: true, completion: nil)
+            //   endDate.datePickerMode = .date
+              
+    }
+    
+    func datepicker1(){
+        let toolbar=UIToolbar()
+        toolbar.sizeToFit()
+        let done=UIBarButtonItem(barButtonSystemItem: .done, target:nil, action:#selector(start))
+        toolbar.setItems([done], animated: false)
+        PstextField.inputAccessoryView=toolbar
+        PstextField.inputView=Pstart_end_date1
+        Pstart_end_date1.datePickerMode = .date
+    }
+    
+    @objc func start(){
+        let dateformat=DateFormatter()
+        dateformat.dateStyle = .medium
+        dateformat.timeStyle = .none
+        dateformat.dateFormat = "yyyy-MM-dd"
+        let sdatestring = dateformat.string(from: Pstart_end_date1.date)
+        PstextField.text="\(sdatestring as! String)"
+        self.view.endEditing(true)
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
@@ -220,6 +323,7 @@ class PendingView: UIViewController,UITableViewDelegate,UITableViewDataSource {
             let TaskStatus = jsonElement["TaskStatus"] as? String,
             let TaskDate = jsonElement["TaskDate"] as? String,
             let Category = jsonElement["Category"] as? String,
+            let Id = jsonElement["Id"] as? String,
             let FavouriteStatus = jsonElement["FavouriteStatus"]as? String
             {
             print(TaskName)
@@ -232,7 +336,7 @@ class PendingView: UIViewController,UITableViewDelegate,UITableViewDataSource {
                             let datetostring = dateformatter.string(from: datetime!)
                             print("datetime \(datetime) \(jsonElement["TaskDate"] as? String) \(datetostring)")
                 
-                pend.append(pendinglist(pendingTaskname: TaskName, pendingdate: datetostring,Category: Category, favstatus: FavouriteStatus))
+                pend.append(pendinglist(pendingTaskname: TaskName, pendingdate: datetostring,Category: Category, favstatus: FavouriteStatus,PendId: Id))
 
                 }
             }
@@ -252,5 +356,6 @@ struct pendinglist{
     var pendingdate: String?
     var Category: String?
     var favstatus: String?
+    var PendId: String?
     
 }

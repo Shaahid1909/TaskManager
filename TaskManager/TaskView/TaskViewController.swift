@@ -7,7 +7,7 @@
 
 import UIKit
 
-class TaskViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
+class TaskViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate {
   
     
   //  @IBOutlet var popView: UIView!
@@ -70,6 +70,9 @@ class TaskViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         super.viewDidLoad()
         tabView.delegate = self
         tabView.dataSource = self
+        tasknameField.delegate = self
+  
+        HideKeyboard()
        // layerView.layer.cornerRadius = 10
    //     popView.bounds = CGRect(x: 0, y: 0, width: 385, height: 345)
         layerView.layer.cornerRadius = 10
@@ -525,8 +528,15 @@ class TaskViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         },completion: { _ in desiredView.removeFromSuperview()} )
     }
     
-    
-    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+         let touch = touches.first
+         if touch?.view != popView {
+            animatedismiss(desiredView: popView)
+            blurView.alpha = 0
+        }
+    }
+
+
     @IBAction func AddbtnActionTapped(_ sender: Any) {
         
         if tasknameField.text!.trimmingCharacters(in: .whitespaces).isEmpty && dateField.text!.trimmingCharacters(in: .whitespaces).isEmpty || tasknameField.text!.trimmingCharacters(in: .whitespaces).isEmpty {
@@ -937,8 +947,20 @@ class TaskViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         dateField.text="\(datestring)"
         self.view.endEditing(true)
     }
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.view.endEditing(true)
+        return false
+    }
     
-    
+    func HideKeyboard() {
+        let Tap:UITapGestureRecognizer = UITapGestureRecognizer(target: self , action: #selector(DismissKeyboard))
+        view.addGestureRecognizer(Tap)
+    }
+ 
+  //-------DismissKeyboard
+    @objc func DismissKeyboard(){
+        view.endEditing(true)
+    }
 }
 
 struct insertData {

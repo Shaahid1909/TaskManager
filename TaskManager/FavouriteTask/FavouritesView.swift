@@ -12,7 +12,12 @@ class FavouritesView: UIViewController,UITableViewDataSource,UITableViewDelegate
     @IBOutlet weak var flayerview: UIView!
     var fav = [list]()
     var urlpath: String?
-    
+    var foldTaskname:String?
+    var fdidselect:String?
+    var fsdateSelect: String?
+    var ftextField = UITextField()
+    var fstextField = UITextField()
+    var fstart_end_date1 = UIDatePicker()
     @IBOutlet weak var favtable: UITableView!
     
     override func viewDidLoad() {
@@ -20,7 +25,8 @@ class FavouritesView: UIViewController,UITableViewDataSource,UITableViewDelegate
 
         favtable.delegate = self
         favtable.dataSource = self
-
+        datepicker1()
+        start()
      //   favtable.reloadData()
         // Do any additional setup after loading the view.
     }
@@ -42,6 +48,106 @@ class FavouritesView: UIViewController,UITableViewDataSource,UITableViewDelegate
         fav.count
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+     
+        foldTaskname?.removeAll()
+        
+ 
+        guard let email = UserDefaults.standard.value(forKey: "email") as? String else {return}
+
+        fdidselect = "\(fav[indexPath.row].favtaskname as! String)"
+        fsdateSelect = "\(fav[indexPath.row].favdate as! String)"
+     
+        let alert = UIAlertController(title: "Edit", message: "", preferredStyle: UIAlertController.Style.alert)
+        let action = UIAlertAction(title: "update", style: UIAlertAction.Style.default) { [self](action) in
+        let alertController = UIAlertController(title: "Edit", message: "Successfully updated!", preferredStyle: UIAlertController.Style.alert)
+        alertController.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default,handler: nil))
+        self.favtable.reloadData()
+      // namo link sever "http://con.test:8888/Task.php"
+            
+            if ftextField.text!.trimmingCharacters(in: .whitespaces).isEmpty != true && fstextField.text!.trimmingCharacters(in: .whitespaces).isEmpty != true{
+            
+            
+        let request = NSMutableURLRequest(url: NSURL(string: "https://appstudio.co/iOS/Edit_N.php")! as URL)
+        request.httpMethod = "POST"
+        let postString = "username=\(email)&TaskName=\(ftextField.text as! String)&TaskStatus=\(fav[indexPath.row].favtaskname as! String)&TaskDate=\(fstextField.text as! String)&Id=\(Int16(fav[indexPath.row].favId as! String) as! Int16)"
+                    print("postString : \(postString)")
+        fav.removeAll()
+        request.httpBody = postString.data(using: String.Encoding.utf8)
+        let task = URLSession.shared.dataTask(with: request as URLRequest) {
+        data, response, error in
+        if error != nil {
+        print("error=\(String(describing: error))")
+                            return
+                        }
+        print("response = \(String(describing: response))")
+        let responseString = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
+        print("responseString = \(String(describing: responseString))")
+        downloadItems()
+            }
+        task.resume()
+        self.present(alertController, animated: true, completion: nil)
+           
+        self.favtable.reloadData()
+        
+    }else {
+          let alert = UIAlertController(title: "Alert", message: "Fill All Fields", preferredStyle: UIAlertController.Style.alert)
+          let cancel = UIAlertAction(title: "Ok", style: .cancel) { (action) -> Void in
+              }
+       
+      alert.addAction(cancel)
+          present(alert, animated: true, completion: nil)
+        }
+                }
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel) { (action) -> Void in
+                    }
+        alert.addTextField { [self] (alertTextField) in
+        alertTextField.placeholder = "Edit Task name"
+        alertTextField.text = fdidselect
+        ftextField = alertTextField
+                }
+            alert.addTextField { [self] (textField1) in
+              let toolbar=UIToolbar()
+              toolbar.sizeToFit()
+         //   self.start_end_date2 = UIDatePicker(frame:CGRect(x: 0, y: self.view.frame.size.height - 220, width:self.view.frame.size.width, height: 216))
+               // start_end_date.datePickerMode = .date
+                let done1=UIBarButtonItem(barButtonSystemItem: .done, target:self, action:#selector(start))
+                toolbar.setItems([done1], animated: false)
+                textField1.inputAccessoryView=toolbar
+                textField1.inputView=fstart_end_date1
+                textField1.placeholder = "Edit Task date"
+                textField1.text = fsdateSelect
+                fstart_end_date1.datePickerMode = .date
+                fstextField = textField1
+              
+        }
+            alert.addAction(action)
+    alert.addAction(cancel)
+            present(alert, animated: true, completion: nil)
+            //   endDate.datePickerMode = .date
+              
+    }
+    
+    func datepicker1(){
+        let toolbar=UIToolbar()
+        toolbar.sizeToFit()
+        let done=UIBarButtonItem(barButtonSystemItem: .done, target:nil, action:#selector(start))
+        toolbar.setItems([done], animated: false)
+        fstextField.inputAccessoryView=toolbar
+        fstextField.inputView=fstart_end_date1
+        fstart_end_date1.datePickerMode = .date
+    }
+    
+    @objc func start(){
+        let dateformat=DateFormatter()
+        dateformat.dateStyle = .medium
+        dateformat.timeStyle = .none
+        dateformat.dateFormat = "yyyy-MM-dd"
+        let sdatestring = dateformat.string(from: fstart_end_date1.date)
+        fstextField.text="\(sdatestring as! String)"
+        self.view.endEditing(true)
+    }
+
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         let id2 = fav[indexPath.row]
            if editingStyle == .delete {
@@ -227,6 +333,7 @@ class FavouritesView: UIViewController,UITableViewDataSource,UITableViewDelegate
             let TaskStatus = jsonElement["TaskStatus"] as? String,
             let TaskDate = jsonElement["TaskDate"] as? String,
             let Category = jsonElement["Category"] as? String,
+            let Id = jsonElement["Id"] as? String,
             let FavouriteStatus = jsonElement["FavouriteStatus"]as? String
             {
             print(TaskName)
@@ -240,7 +347,7 @@ class FavouritesView: UIViewController,UITableViewDataSource,UITableViewDelegate
                             print("datetime \(datetime) \(jsonElement["TaskDate"] as? String) \(datetostring)")
 
 
-                fav.append(list(favtaskname: TaskName, favdate: datetostring,Category: Category,favStatus: FavouriteStatus))
+                fav.append(list(favtaskname: TaskName, favdate: datetostring,Category: Category,favStatus: FavouriteStatus,favId: Id))
 
                 }
             }
@@ -259,5 +366,6 @@ struct list{
     var favdate: String?
     var Category: String?
     var favStatus: String?
+    var favId: String?
     
 }
