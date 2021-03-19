@@ -37,6 +37,8 @@
 		CF1D76922602128800175D04 /* WalkthroughContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF1D768F2602128700175D04 /* WalkthroughContentViewController.swift */; };
 		CF1D76932602128800175D04 /* WalkthroughPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF1D76902602128800175D04 /* WalkthroughPageViewController.swift */; };
 		CF1D76942602128800175D04 /* WalkthroughViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF1D76912602128800175D04 /* WalkthroughViewController.swift */; };
+		CF845DF226046F6B00E2EE86 /* IntroViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF845DF126046F6B00E2EE86 /* IntroViewController.swift */; };
+		CF845DFD2604821400E2EE86 /* InroCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF845DFC2604821400E2EE86 /* InroCell.swift */; };
 		F4BEC4CFA4E7FD234F37D829 /* Pods_TaskManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D8009AA14395A4F7193CBF1 /* Pods_TaskManager.framework */; };
 /* End PBXBuildFile section */
 
@@ -101,6 +103,8 @@
 		CF1D768F2602128700175D04 /* WalkthroughContentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WalkthroughContentViewController.swift; sourceTree = "<group>"; };
 		CF1D76902602128800175D04 /* WalkthroughPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WalkthroughPageViewController.swift; sourceTree = "<group>"; };
 		CF1D76912602128800175D04 /* WalkthroughViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WalkthroughViewController.swift; sourceTree = "<group>"; };
+		CF845DF126046F6B00E2EE86 /* IntroViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntroViewController.swift; sourceTree = "<group>"; };
+		CF845DFC2604821400E2EE86 /* InroCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InroCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -184,6 +188,8 @@
 				8CF969C625F921B700F53670 /* SceneDelegate.swift */,
 				8CC902D42601FCB8007C1119 /* IntroScreen.swift */,
 				8CF969C825F921B700F53670 /* ViewController.swift */,
+				CF845DF126046F6B00E2EE86 /* IntroViewController.swift */,
+				CF845DFC2604821400E2EE86 /* InroCell.swift */,
 				8C90A03625FA2B5D00E0FBBA /* securityView.swift */,
 				CF1D768026020DE800175D04 /* TaskView */,
 				CF1D768126020E9700175D04 /* FavouriteTask */,
@@ -529,6 +535,8 @@
 				8C654F9625FB2C1E0079E544 /* FavouriteCell.swift in Sources */,
 				8C654F8E25FB2C080079E544 /* CompletedView.swift in Sources */,
 				8CF969C525F921B700F53670 /* AppDelegate.swift in Sources */,
+				CF845DF226046F6B00E2EE86 /* IntroViewController.swift in Sources */,
+				CF845DFD2604821400E2EE86 /* InroCell.swift in Sources */,
 				8C654F7E25FB2BC00079E544 /* FavouritesView.swift in Sources */,
 				8CD6E50525FBA3CD0033F5D2 /* setfourthCell.swift in Sources */,
 				8CD6E4EE25FB8BAF0033F5D2 /* SettingsViewController.swift in Sources */,

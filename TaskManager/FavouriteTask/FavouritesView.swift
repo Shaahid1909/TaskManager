@@ -19,6 +19,8 @@ class FavouritesView: UIViewController,UITableViewDataSource,UITableViewDelegate
     var fstextField = UITextField()
     var fstart_end_date1 = UIDatePicker()
     @IBOutlet weak var favtable: UITableView!
+    @IBOutlet weak var fdefaulVeww: UIView!
+    @IBOutlet weak var fibgview: UIImageView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -168,6 +170,13 @@ class FavouritesView: UIViewController,UITableViewDataSource,UITableViewDelegate
             print("responseString = \(String(describing: responseString))")
             }
             task3.resume()
+            if self.fav.count > 0{
+                self.favtable.isHidden = false
+                self.fdefaulVeww.isHidden = true
+            }else {
+                self.favtable.isHidden = true
+                self.fdefaulVeww.isHidden = false
+            }
         }
     }
     
@@ -176,7 +185,7 @@ class FavouritesView: UIViewController,UITableViewDataSource,UITableViewDelegate
            print("OK, marked as Closed")
           let requesting = NSMutableURLRequest(url: NSURL(string: "https://appstudio.co/iOS/update_N.php")! as URL)
           requesting.httpMethod = "POST"
-          let postStr = "TaskName=\(fav[indexPath.row].favtaskname)&TaskStatus=Completed"
+    let postStr = "TaskName=\(fav[indexPath.row].favtaskname)&TaskStatus=Completed"
           print("leadingSwipeActions \(postStr)")
           requesting.httpBody = postStr.data(using: String.Encoding.utf8)
           let task = URLSession.shared.dataTask(with: requesting as URLRequest) {
@@ -347,22 +356,28 @@ class FavouritesView: UIViewController,UITableViewDataSource,UITableViewDelegate
                             print("datetime \(datetime) \(jsonElement["TaskDate"] as? String) \(datetostring)")
 
 
-                fav.append(list(favtaskname: TaskName, favdate: datetostring,Category: Category,favStatus: FavouriteStatus,favId: Id))
+                fav.append(list(favtaskname: TaskName,fTaskStatus: TaskStatus, favdate: datetostring,Category: Category,favStatus: FavouriteStatus,favId: Id))
 
                 }
             }
         DispatchQueue.main.async(execute: { [self] () -> Void in
                 itemsDownloaded(items: stocks)
+            if self.fav.count > 0{
+                self.favtable.isHidden = false
+                self.fdefaulVeww.isHidden = true
+            }else {
+                self.favtable.isHidden = true
+                self.fdefaulVeww.isHidden = false
+            }
         })
         }
-    
-    
     func itemsDownloaded(items: NSArray) {
-       
         self.favtable.reloadData()
       }}
+
 struct list{
     var favtaskname: String?
+    var fTaskStatus:String?
     var favdate: String?
     var Category: String?
     var favStatus: String?

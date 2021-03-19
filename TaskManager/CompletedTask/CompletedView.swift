@@ -16,8 +16,7 @@ class CompletedView: UIViewController,UITableViewDelegate,UITableViewDataSource 
     var CtextField = UITextField()
     var CstextField = UITextField()
     var Cstart_end_date1 = UIDatePicker()
-    
-    
+    @IBOutlet weak var cdefaulVeww: UIView!
     @IBOutlet weak var comptable: UITableView!
     
     override func viewDidLoad() {
@@ -167,6 +166,13 @@ class CompletedView: UIViewController,UITableViewDelegate,UITableViewDataSource 
             print("responseString = \(String(describing: responseString))")
             }
             task3.resume()
+            if self.complete.count > 0{
+                self.comptable.isHidden = false
+                self.cdefaulVeww.isHidden = true
+            }else {
+                self.comptable.isHidden = true
+                self.cdefaulVeww.isHidden = false
+            }
         }
     }
     
@@ -310,12 +316,19 @@ class CompletedView: UIViewController,UITableViewDelegate,UITableViewDataSource 
                             let datetostring = dateformatter.string(from: datetime!)
                             print("datetime \(datetime) \(jsonElement["TaskDate"] as? String) \(datetostring)")
 
-                complete.append(completelist(completedTaskname: TaskName, completeddate: datetostring, Category: Category,compId: Id))
+                complete.append(completelist(completedTaskname: TaskName,completedTaskstatus: TaskStatus, completeddate: datetostring, Category: Category,compId: Id))
 
                 }
             }
         DispatchQueue.main.async(execute: { [self] () -> Void in
                 itemsDownloaded(items: stocks)
+            if self.complete.count > 0{
+                self.comptable.isHidden = false
+                self.cdefaulVeww.isHidden = true
+            }else {
+                self.comptable.isHidden = true
+                self.cdefaulVeww.isHidden = false
+            }
         })
         }
     
@@ -324,8 +337,10 @@ class CompletedView: UIViewController,UITableViewDelegate,UITableViewDataSource 
        
         self.comptable.reloadData()
       }}
+
 struct completelist{
     var completedTaskname: String?
+    var completedTaskstatus: String?
     var completeddate: String?
     var Category: String?
     var favstatus: String?

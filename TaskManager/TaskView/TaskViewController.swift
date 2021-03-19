@@ -17,7 +17,10 @@ class TaskViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
     @IBOutlet weak var dateField: UITextField!
     @IBOutlet weak var viewtaskaddbtn: UIButton!
     @IBOutlet weak var blurView: UIView!
-    
+    @IBOutlet weak var popBGview: UIView!
+    @IBOutlet weak var defaulVeww: UIView!
+    @IBOutlet weak var ibgview: UIImageView!
+    @IBOutlet weak var popBtn: UIButton!
     @IBOutlet var popView: UIScrollView!
     @IBOutlet weak var layerView: UIView!
     var insert = [insertData]()
@@ -57,6 +60,14 @@ class TaskViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         animateIn(desiredView: popView)
         
     }
+ 
+    
+    @IBAction func poputtonTapped(_ sender: Any) {
+        animatedismiss(desiredView: popView)
+        blurView.alpha = 0
+        
+    }
+    
 
     override func viewWillAppear(_ animated: Bool) {
       
@@ -94,7 +105,7 @@ class TaskViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         datepicker1()
         start()
         blurView.alpha = 0
-   
+    
     }
     
     @IBAction func ShoppingAction(_ sender: Any) {
@@ -641,6 +652,13 @@ class TaskViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
             }
         DispatchQueue.main.async(execute: { [self] () -> Void in
                 itemsDownloaded(items: stocks)
+            if self.insert.count > 0{
+                self.tabView.isHidden = false
+                self.defaulVeww.isHidden = true
+            }else {
+                self.tabView.isHidden = true
+                self.defaulVeww.isHidden = false
+            }
         })
         }
     
@@ -655,7 +673,19 @@ class TaskViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return insert.count
+     //   return insert.count
+         var numOfSection: NSInteger = 0
+
+             if insert.count > 0 {
+
+                defaulVeww.alpha = 0
+                numOfSection = insert.count
+             } else {
+
+                defaulVeww.alpha = 1
+             }
+            return numOfSection
+        
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -876,7 +906,15 @@ class TaskViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
             print("responseString = \(String(describing: responseString))")
             }
             task3.resume()
-        }
+            if self.insert.count > 0{
+                self.tabView.isHidden = false
+                self.defaulVeww.isHidden = true
+            }else {
+                self.tabView.isHidden = true
+                self.defaulVeww.isHidden = false
+            }
+            
+           }
     }
     
 /*    func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {

@@ -16,6 +16,8 @@ class PendingView: UIViewController,UITableViewDelegate,UITableViewDataSource {
     var PtextField = UITextField()
     var PstextField = UITextField()
     var Pstart_end_date1 = UIDatePicker()
+    @IBOutlet weak var pdefaulVeww: UIView!
+
     
     @IBOutlet weak var pendtable: UITableView!
     
@@ -163,7 +165,15 @@ class PendingView: UIViewController,UITableViewDelegate,UITableViewDataSource {
             print("responseString = \(String(describing: responseString))")
             }
             task3.resume()
-        }
+            if self.pend.count > 0{
+                self.pendtable.isHidden = false
+                self.pdefaulVeww.isHidden = true
+            }else {
+                self.pendtable.isHidden = true
+                self.pdefaulVeww.isHidden = false
+            }
+            
+           }
     }
     
     func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
@@ -302,6 +312,8 @@ class PendingView: UIViewController,UITableViewDelegate,UITableViewDataSource {
               print("responseString = \(String(describing: responseString))")
             }
             task.resume()
+       
+        
         
     }
     
@@ -336,12 +348,19 @@ class PendingView: UIViewController,UITableViewDelegate,UITableViewDataSource {
                             let datetostring = dateformatter.string(from: datetime!)
                             print("datetime \(datetime) \(jsonElement["TaskDate"] as? String) \(datetostring)")
                 
-                pend.append(pendinglist(pendingTaskname: TaskName, pendingdate: datetostring,Category: Category, favstatus: FavouriteStatus,PendId: Id))
+                pend.append(pendinglist(pendingTaskname: TaskName,pendingTaskStatus: TaskStatus, pendingdate: datetostring,Category: Category, favstatus: FavouriteStatus,PendId: Id))
 
                 }
             }
         DispatchQueue.main.async(execute: { [self] () -> Void in
                 itemsDownloaded(items: stocks)
+            if self.pend.count > 0{
+                self.pendtable.isHidden = false
+                self.pdefaulVeww.isHidden = true
+            }else {
+                self.pendtable.isHidden = true
+                self.pdefaulVeww.isHidden = false
+            }
         })
         }
     
@@ -353,6 +372,7 @@ class PendingView: UIViewController,UITableViewDelegate,UITableViewDataSource {
 
 struct pendinglist{
     var pendingTaskname: String?
+    var pendingTaskStatus: String?
     var pendingdate: String?
     var Category: String?
     var favstatus: String?
