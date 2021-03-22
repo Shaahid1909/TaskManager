@@ -304,7 +304,8 @@ class CompletedView: UIViewController,UITableViewDelegate,UITableViewDataSource 
             let TaskStatus = jsonElement["TaskStatus"] as? String,
             let TaskDate = jsonElement["TaskDate"] as? String,
             let Category = jsonElement["Category"] as? String,
-            let Id = jsonElement["Id"] as? String,let FavouriteStatus = jsonElement["FavouriteStatus"]as? String
+            let Id = jsonElement["Id"] as? String,
+            let FavouriteStatus = jsonElement["FavouriteStatus"]as? String
             {
             print(TaskName)
             print(TaskStatus)
@@ -316,7 +317,7 @@ class CompletedView: UIViewController,UITableViewDelegate,UITableViewDataSource 
                             let datetostring = dateformatter.string(from: datetime!)
                             print("datetime \(datetime) \(jsonElement["TaskDate"] as? String) \(datetostring)")
 
-                complete.append(completelist(completedTaskname: TaskName,completedTaskstatus: TaskStatus, completeddate: datetostring, Category: Category,compId: Id))
+                complete.append(completelist(completedTaskname: TaskName,completedTaskstatus: TaskStatus, completeddate: datetostring, Category: Category,favstatus: FavouriteStatus,compId: Id))
 
                 }
             }

@@ -306,10 +306,10 @@ class PendingView: UIViewController,UITableViewDelegate,UITableViewDataSource {
                 print("error=\(String(describing: error))")
                 return
               }
-              self.parseJSON(data!)
-              print("response = \(String(describing: response))")
-              let responseString = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
-              print("responseString = \(String(describing: responseString))")
+            self.parseJSON(data!)
+            print("response = \(String(describing: response))")
+            let responseString = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
+            print("responseString = \(String(describing: responseString))")
             }
             task.resume()
        

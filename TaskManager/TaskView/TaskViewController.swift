@@ -558,9 +558,6 @@ class TaskViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
             present(alert, animated: true, completion: nil)
          
         }else{
-        
-        
-        
         blurView.alpha = 0
         
         guard let email = UserDefaults.standard.value(forKey: "email") as? String else {return}
@@ -635,19 +632,18 @@ class TaskViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
             let Id = jsonElement["Id"] as? String,
             let FavouriteStatus = jsonElement["FavouriteStatus"]as? String
 {
-                            let formatter = DateFormatter()
-                                        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss Z"
-                                        let datetime = formatter.date(from: "\(jsonElement["TaskDate"] as! String) 13:37:00 +0100")
-                                        let dateformatter = DateFormatter()
-                                        dateformatter.dateFormat = "E,d MMM"
-                                        let datetostring = dateformatter.string(from: datetime!)
-                                        print("datetime \(datetime) \(jsonElement["TaskDate"] as? String) \(datetostring)")
+            let formatter = DateFormatter()
+            formatter.dateFormat = "yyyy-MM-dd HH:mm:ss Z"
+            let datetime = formatter.date(from: "\(jsonElement["TaskDate"] as! String) 13:37:00 +0100")
+            let dateformatter = DateFormatter()
+            dateformatter.dateFormat = "E,d MMM"
+            let datetostring = dateformatter.string(from: datetime!)
+            print("datetime \(datetime) \(jsonElement["TaskDate"] as? String) \(datetostring)")
             print(TaskName)
             print(TaskStatus)
                 
-                insert.append(insertData(TaskName: TaskName, TaskStatus: TaskStatus,TaskDate: datetostring,FavouriteStatus: FavouriteStatus,Category: Category,Id: Id))
+            insert.append(insertData(TaskName: TaskName, TaskStatus: TaskStatus,TaskDate: datetostring,FavouriteStatus: FavouriteStatus,Category: Category,Id: Id))
                 
-
                 }
             }
         DispatchQueue.main.async(execute: { [self] () -> Void in
